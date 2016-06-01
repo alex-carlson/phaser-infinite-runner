@@ -12,11 +12,10 @@ SideScroller.Preload.prototype = {
 
     this.load.setPreloadSprite(this.preloadBar);
     this.cursors = this.game.input.activePointer;
-    console.log(this.cursors);
 
     //load game assets
-    this.load.image('player', 'assets/images/player.png');
-    this.load.image('playerDuck', 'assets/images/player_duck.png');
+    this.load.image('player', 'assets/images/alex_Run.gif');
+    this.load.image('playerDuck', 'assets/images/alex_Jump.gif');
     this.load.image('playerDead', 'assets/images/player_dead.png');
     this.load.image('goldCoin', 'assets/images/goldCoin.png');
     this.load.image('floor', 'assets/images/floor.png');
