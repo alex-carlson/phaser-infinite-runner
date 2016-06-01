@@ -11,6 +11,8 @@ SideScroller.Preload.prototype = {
     this.preloadBar.scale.setTo(3);
 
     this.load.setPreloadSprite(this.preloadBar);
+    this.cursors = this.game.input.activePointer;
+    console.log(this.cursors);
 
     //load game assets
     this.load.image('player', 'assets/images/player.png');
@@ -21,7 +23,9 @@ SideScroller.Preload.prototype = {
     this.load.image('yellowBlock', 'assets/images/yellow-block.png');
     this.load.audio('coin', 'assets/audio/coin.wav');
   },
-  create: function() {
-    this.state.start('Game');
+  update: function(){
+    if(this.cursors.isDown){
+      this.state.start('Game');
+    }
   }
 };
