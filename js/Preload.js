@@ -17,9 +17,9 @@ SideScroller.Preload.prototype = {
     this.load.image('player', 'assets/images/alex_Run.gif');
     this.load.image('playerDuck', 'assets/images/alex_Jump.gif');
     this.load.image('playerDead', 'assets/images/player_dead.png');
-    this.load.image('goldCoin', 'assets/images/goldCoin.png');
-    this.load.image('floor', 'assets/images/floor.png');
-    this.load.image('yellowBlock', 'assets/images/yellow-block.png');
+    this.load.image('goldCoin', 'assets/images/pizza.png');
+    this.load.image('floor', 'assets/images/grass.png');
+    this.load.image('sand', 'assets/images/sand.gif');
     this.load.audio('coin', 'assets/audio/coin.wav');
   },
   update: function(){

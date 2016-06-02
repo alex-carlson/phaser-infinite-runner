@@ -12,17 +12,16 @@ SideScroller.Game.prototype = {
 
     //game params
     this.levelSpeed = -250;
-    this.tileSize = 70;
-    this.probCliff = 0.4;
-    this.probVertical = 0.4;
-    this.probMoreVertical = 0.5;
+    this.tileSize = 32;
+    this.probCliff = 0.5;
+    this.probVertical = 0.5;
     this.coinProb = 1;
 
     //initiate groups, we'll recycle elements
     this.floors = this.game.add.group();
     this.floors.enableBody = true;
 
-    for(var i=0; i<12; i++) {
+    for(var i=0; i<36; i++) {
       newItem = this.floors.create(i * this.tileSize, this.game.world.height - this.tileSize, 'floor');
       newItem.body.immovable = true;
       newItem.body.velocity.x = this.levelSpeed;
@@ -37,7 +36,7 @@ SideScroller.Game.prototype = {
 
     this.verticalObstacles = this.game.add.group();
     this.verticalObstacles.enableBody = true;
-    this.verticalObstacles.createMultiple(12, 'yellowBlock');
+    this.verticalObstacles.createMultiple(12, 'sand');
     this.verticalObstacles.setAll('checkWorldBounds', true);
     this.verticalObstacles.setAll('outOfBoundsKill', true);
 
@@ -135,7 +134,7 @@ SideScroller.Game.prototype = {
           this.lastCliff = false;
           this.lastVertical = true;
           block = this.verticalObstacles.getFirstExists(false);
-          block.reset(this.lastFloor.body.x + this.tileSize, this.game.world.height - 3 * this.tileSize);
+          block.reset(this.lastFloor.body.x + this.tileSize, this.game.world.height - 2 * this.tileSize);
           block.body.velocity.x = this.levelSpeed;
           block.body.immovable = true;
 
