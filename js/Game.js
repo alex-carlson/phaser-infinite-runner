@@ -1,4 +1,5 @@
 var SideScroller = SideScroller || {};
+var score = 0;
 
 SideScroller.Game = function(){};
 
@@ -15,6 +16,7 @@ SideScroller.Game.prototype = {
     this.probCliff = 0.4;
     this.probVertical = 0.4;
     this.probMoreVertical = 0.5;
+    this.coinProb = 1;
 
     //initiate groups, we'll recycle elements
     this.floors = this.game.add.group();
@@ -73,6 +75,7 @@ SideScroller.Game.prototype = {
 
     //sounds
     this.coinSound = this.game.add.audio('coin');
+
   },
 
 
@@ -81,7 +84,7 @@ SideScroller.Game.prototype = {
     //collision
     this.game.physics.arcade.collide(this.player, this.floors, this.playerHit, null, this);
     this.game.physics.arcade.collide(this.player, this.verticalObstacles, this.playerHit, null, this);
-    //this.game.physics.arcade.overlap(this.player, this.coins, this.collect, null, this);
+    this.game.physics.arcade.overlap(this.player, this.coins, this.collect, null, this);
 
     //only respond to keys and keep the speed if the player is alive
     if(this.player.alive) {
@@ -136,13 +139,8 @@ SideScroller.Game.prototype = {
           block.body.velocity.x = this.levelSpeed;
           block.body.immovable = true;
 
-          if(Math.random() < this.probMoreVertical) {
-            block = this.verticalObstacles.getFirstExists(false);
-            if(block) {
-              block.reset(this.lastFloor.body.x + this.tileSize, this.game.world.height - 4 * this.tileSize);
-              block.body.velocity.x = this.levelSpeed;
-              block.body.immovable = true;
-            }
+          if(Math.random() < this.coinProb){
+            this.createCoins();
           }
 
         }
@@ -177,18 +175,33 @@ SideScroller.Game.prototype = {
   collect: function(player, collectable) {
     //play audio
     this.coinSound.play();
+    score++;
 
     //remove sprite
     collectable.destroy();
   },
   //create coins
   createCoins: function() {
-    this.coins = this.game.add.group();
+    var block;
+
     this.coins.enableBody = true;
-    var result = this.findObjectsByType('coin', this.map, 'objectsLayer');
+    // var result = this.findObjectsByType('coin', this.map, 'objectsLayer');
+    // result.forEach(function(element){
+    //   this.createFromTiledObject(element, this.coins);
+    // }, this);
+
+    this.coins.create(this.game.world.width/2 + this.tileSize, this.game.world.height - 3 * this.tileSize, "goldCoin");
+
+    var result = this.coins;
     result.forEach(function(element){
-      this.createFromTiledObject(element, this.coins);
+
+    block = this.coins.getFirstExists();
+    block.body.velocity.x = this.levelSpeed;
+    block.body.immovable = true;
+
+
     }, this);
+
   },
   gameOver: function() {
     this.game.state.start('Game');
@@ -200,6 +213,6 @@ SideScroller.Game.prototype = {
   },
   render: function()
     {
-        this.game.debug.text(this.game.time.fps || '--', 20, 70, "#00ff00", "40px Courier");
+        this.game.debug.text(score, 20, 70, "#00ff00", "40px Courier");
     }
 };
