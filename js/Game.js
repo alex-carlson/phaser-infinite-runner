@@ -190,7 +190,7 @@ SideScroller.Game.prototype = {
     //   this.createFromTiledObject(element, this.coins);
     // }, this);
 
-    this.coins.create(this.game.world.width/2 + this.tileSize, this.game.world.height - 3 * this.tileSize, "goldCoin");
+    this.coins.create(this.game.world.width + this.tileSize, this.game.world.height - 3 * this.tileSize, "goldCoin");
 
     var result = this.coins;
     result.forEach(function(element){
